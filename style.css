@@ -1,0 +1,65 @@
+html {
+    font-size: 40px;
+}
+body {
+    position: absolute;
+    margin: 0;
+    height: 100%;
+    display: block;
+    width: 100%;
+}
+
+#content {
+    text-align: center;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+body.not-prime {
+    background: #aa3939;
+    color: #DBF0DB;
+}
+
+body.prime {
+    background: #aaaa39;
+    color: #e7dfec;
+}
+
+body.probably-prime {
+    background: #2e4372;
+    color: #ffe3aa;
+}
+
+#result .message {
+    display: none;
+}
+body.not-prime #result .message.not-prime,
+body.prime #result .message.prime,
+body.probably-prime #result .message.probably-prime
+{
+    display: initial;
+}
+
+#pager {
+    font-size: 50%;
+    position: absolute;
+    bottom: 1em;
+    width: 100%;
+}
+#pager button {
+    background: none;
+    border: none;
+    font-size: 1em;
+    color: inherit;
+}
+#prev {
+    float: left;
+    margin-left: 1em;
+}
+#next {
+    float: right;
+    margin-right: 1em;
+}
