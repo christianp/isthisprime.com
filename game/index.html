@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta charset="UTF-8">
+        <script src="../biginteger.js"></script>
+        <script src="../prime.js"></script>
+        <link rel="stylesheet" href="style.css"></link>
+    </head>
+	<body class="">
+		<div class="score">
+			Score: <span id="score"></span>
+		</div>
+		<div id="content">
+			<div class="screen play">
+				<p>
+					Is
+					<br>
+					<span class="number" id="n"></span>
+					<br>
+					prime?
+				</p>
+				<div>
+					<button id="yes" type="button">Yes</button>
+					<button id="no" type="button">No</button>
+				</div>
+			</div>
+			<div class="screen end">
+				<h1>Game over</h1>
+				<p>You correctly sorted <span class="number" id="end-score"></span> numbers.</p>
+				<button type="button" id="restart">Start again</button>
+			</div>
+		</div>
+        <script src="thing.js"></script>
+    </body>
+</html>

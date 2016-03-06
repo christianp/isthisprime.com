@@ -1,0 +1,96 @@
+html {
+    font-size: 40px;
+}
+@media screen and (min-width: 768px) {
+	html {
+		font-size: 60px;
+	}
+}
+
+body {
+    position: absolute;
+    margin: 0;
+    height: 100%;
+    display: block;
+    width: 100%;
+	transition: background-color 1s, color 1s;
+}
+a {
+	color: inherit;
+}
+
+.number {
+	font-family: sans-serif;
+	font-weight: 900;
+	font-size: 1.2em;
+	word-break: break-all;
+}
+.len-10 .number {
+	font-size: 0.8em;
+}
+.len-20 .number {
+	font-size: 0.6em;
+}
+.len-30 .number {
+	font-size: 0.4em;
+}
+
+#content {
+    text-align: center;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+body.loading {
+	background: #666;
+	color: #eee;
+}
+body.loading #pager {
+	display: none;
+}
+
+body.not-prime {
+    background: #aa3939;
+    color: #DBF0DB;
+}
+
+body.prime {
+    background: #aaaa39;
+    color: #e7dfec;
+}
+
+body.probably-prime {
+    background: #2e4372;
+    color: #ffe3aa;
+}
+
+.screen {
+    display: none;
+}
+
+body.play .screen.play,
+body.end .screen.end
+{
+    display: initial;
+}
+
+.screen.not-prime strong, .screen.not-prime small {
+	color: hsl(120, 41%, 70%);
+}
+.screen.prime strong, .screen.not-prime small {
+	color: hsl(277, 25%, 80%);
+}
+.screen.probably-prime strong, .screen.probably-prime small {
+	color: hsl(40, 100%, 70%);
+}
+
+button {
+	font-size: 1em;
+	padding: 0.5em 1em;
+	border: none;
+	background: none;
+	font-family: inherit;
+}
