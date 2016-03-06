@@ -138,4 +138,20 @@ function is_prime(n) {
     return 'probable prime';
 }
 
-
+function factorise(n) {
+    var factors = [];
+    var i = 2;
+    while(n>1) {
+        var p = 0;
+        while(n%i==0) {
+            p += 1;
+            n /= i;
+        }
+        if(p) {
+            factors.push([i,p]);
+        } else {
+            i += 1;
+        }
+    }
+    return factors;
+}

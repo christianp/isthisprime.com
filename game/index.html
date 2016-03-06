@@ -8,11 +8,19 @@
         <link rel="stylesheet" href="style.css"></link>
     </head>
 	<body class="">
-		<div class="score">
-			Score: <span id="score"></span>
-		</div>
 		<div id="content">
+            <div class="screen start">
+                <h1>The <em>Is this prime?</em> game</h1>
+                <div class="controls">
+                    <button type="button" id="start">Start</button>
+                </div>
+            </div>
 			<div class="screen play">
+                <div class="score">
+                    Score: <span id="score" class="number"></span>
+                    <br>
+                    Time remaining: <span id="time" class="number"></span>s
+                </div>
 				<p>
 					Is
 					<br>
@@ -20,15 +28,18 @@
 					<br>
 					prime?
 				</p>
-				<div>
+				<div class="controls">
 					<button id="yes" type="button">Yes</button>
 					<button id="no" type="button">No</button>
 				</div>
 			</div>
 			<div class="screen end">
 				<h1>Game over</h1>
+                <p id="reason"></p>
 				<p>You correctly sorted <span class="number" id="end-score"></span> numbers.</p>
-				<button type="button" id="restart">Start again</button>
+				<div class="controls">
+                    <button type="button" id="restart">Start again</button>
+                </div>
 			</div>
 		</div>
         <script src="thing.js"></script>

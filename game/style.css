@@ -1,5 +1,5 @@
 html {
-    font-size: 40px;
+    font-size: 30px;
 }
 @media screen and (min-width: 768px) {
 	html {
@@ -52,25 +52,42 @@ body.loading #pager {
 	display: none;
 }
 
-body.not-prime {
+#start {
+    background: #2e4372;
+    color: #ffe3aa;
+}
+#no {
     background: #aa3939;
     color: #DBF0DB;
 }
 
-body.prime {
+#yes {
     background: #aaaa39;
     color: #e7dfec;
 }
-
-body.probably-prime {
+#restart {
     background: #2e4372;
     color: #ffe3aa;
+}
+
+body.start {
+    background: #aaaa39;
+    color: #e7dfec;
+}
+body.play {
+    background: #2e4372;
+    color: #ffe3aa;
+}
+body.end {
+    background: #aa3939;
+    color: #DBF0DB;
 }
 
 .screen {
     display: none;
 }
 
+body.start .screen.start,
 body.play .screen.play,
 body.end .screen.end
 {
@@ -93,4 +110,14 @@ button {
 	border: none;
 	background: none;
 	font-family: inherit;
+}
+
+@media screen and (min-width: 425px) {
+    .controls {
+        display: flex;
+    }
+    .controls button {
+        flex-grow: 1;
+        margin: 0 1em;
+    }
 }
