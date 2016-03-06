@@ -6,11 +6,16 @@
         <script src="biginteger.js"></script>
         <link rel="stylesheet" href="style.css"></link>
     </head>
-    <body>
+	<body class="loading">
         <div id="content">
             <div id="result">
-                <span id="n"></span>
-                <br>
+				<span id="n" class="number"></span>
+				<br>
+				<span class="message loading">
+					needs some thought
+					<br>
+					<span class="ellipsis">...</span>
+				</span>
                 <span class="message not-prime">
                     is <strong>not</strong>
                     <br>
@@ -21,11 +26,17 @@
                     <br>
                     a prime number!
                 </span>
+                <span class="message probably-prime">
+                    is <strong>probably*</strong>
+                    <br>
+                    a prime number!
+					<p><small>* Using the Miller-Rabin probabilistic prime test</small></p>
+                </span>
             </div>
         </div>
         <div id="pager">
-            <button type="button" id="prev">← <span id="prev-n"></span></button>
-            <button type="button" id="next"><span id="next-n"></span> →</button>
+            <button type="button" id="prev">← <span id="prev-n" class="number"></span></button>
+            <button type="button" id="next"><span id="next-n" class="number"></span> →</button>
         </div>
         <script src="thing.js"></script>
     </body>

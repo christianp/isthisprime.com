@@ -1,3 +1,5 @@
+var seen = {};
+
 function modpow(a,b,n) {
     if(b==0) {
         return 1;
@@ -59,14 +61,14 @@ function miller_rabin(n,a) {
     //  `false` if provably composite
     //  `true` if probable prime
 
-    var s = (n+'').replace(/\s/g,'');
+    var s = (n.toString()).replace(/\s/g,'');
     var len = s.length;
     var f = parseFloat(s);
     var lastDigit = parseInt(s[len-1],10);
 
     var res;
     var len = s.length;
-    var mr_base = BigInteger.parse(a+'');
+    var mr_base = BigInteger.parse(a.toString());
     var mr_cand = BigInteger.parse(s);
     var mr_temp = mr_cand.subtract(1)
 
@@ -103,7 +105,7 @@ function miller_rabin(n,a) {
 var smallPrimes = [2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97,101,103,107,109,113];
 
 function is_prime(n) {
-    if(n.length<=15) {
+    if(n.length<=10) {
         n = parseInt(n);
         if(n<2) {
             return "not prime";
@@ -121,15 +123,15 @@ function is_prime(n) {
 
     var res;
     var a; 
-    var s = (n+'').replace(/\s/g,''); 
+    var s = (n.toString()).replace(/\s/g,''); 
     var rounds = smallPrimes.length;
     for (var k=0;k<rounds;k++) {
         a = smallPrimes[k];
-        if (s == a+'') {
+        if (s == a.toString()) {
             return 'prime';
         }
         res = miller_rabin(s,a);
-        if ((res+'').indexOf('i')>0) {
+        if ((res.toString()).indexOf('i')>0) {
             return res;
         }
         if (res===false) {
@@ -142,17 +144,34 @@ function is_prime(n) {
 var $ = function(s){return document.querySelector(s)};
 
 function update(n) {
-    var message = describe_primality(n);
+	document.body.className = '';
     $('#n').innerText = n;
-    document.body.className = '';
-    document.body.classList.add(message);
+	var tens = n.length-(n.length%10);
+	if(n.length>30) {
+		tens = 30;
+	}
+	document.body.classList.add('len-'+tens);
 
-    $('#prev-n').innerText = BigInteger.parse(n).subtract(1)+'';
-    $('#next-n').innerText = BigInteger.parse(n).add(1)+'';
+	function calculate() {
+		var message = n in seen ? seen[n] : describe_primality(n);
+		seen[n] = message;
+		document.body.classList.remove('loading');
+		document.body.classList.add(message);
 
-    if(window.history) {
-        window.history.replaceState(null,n,'?'+n);
-    }
+		$('#prev-n').innerText = BigInteger.parse(n).subtract(1).toString();
+		$('#next-n').innerText = BigInteger.parse(n).add(1).toString();
+
+		if(window.history) {
+			window.history.replaceState(null,n,n);
+		}
+	}
+
+	if(n.length>6) {
+    	document.body.classList.add('loading');
+		setTimeout(calculate,0);
+	} else {
+		calculate();
+	}
 }
 
 function describe_primality(n) {
@@ -180,10 +199,5 @@ $('#next').addEventListener('click',function() {
     update(n);
 });
 
-var n;
-if(window.location.search) {
-    n = window.location.search.slice(1);
-} else {
-    n = '2';
-}
+var n = window.location.pathname.slice(1) || '2';
 update(n);

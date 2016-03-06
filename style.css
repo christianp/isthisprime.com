@@ -1,12 +1,35 @@
 html {
     font-size: 40px;
 }
+@media screen and (min-width: 768px) {
+	html {
+		font-size: 100px;
+	}
+}
+
 body {
     position: absolute;
     margin: 0;
     height: 100%;
     display: block;
     width: 100%;
+	transition: background-color 1s, color 1s;
+}
+
+.number {
+	font-family: sans-serif;
+	font-weight: 900;
+	font-size: 1.2em;
+	word-break: break-all;
+}
+.len-10 .number {
+	font-size: 0.8em;
+}
+.len-20 .number {
+	font-size: 0.6em;
+}
+.len-30 .number {
+	font-size: 0.4em;
 }
 
 #content {
@@ -16,6 +39,14 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
+}
+
+body.loading {
+	background: #666;
+	color: #eee;
+}
+body.loading #pager {
+	display: none;
 }
 
 body.not-prime {
@@ -36,11 +67,56 @@ body.probably-prime {
 #result .message {
     display: none;
 }
+
+body.loading #result .message.loading,
 body.not-prime #result .message.not-prime,
 body.prime #result .message.prime,
 body.probably-prime #result .message.probably-prime
 {
     display: initial;
+}
+
+.message.not-prime strong, .message.not-prime small {
+	color: hsl(120, 41%, 70%);
+}
+.message.prime strong, .message.not-prime small {
+	color: hsl(277, 25%, 80%);
+}
+.message.probably-prime strong, .message.probably-prime small {
+	color: hsl(40, 100%, 70%);
+}
+
+.ellipsis {
+	display: inline-block;
+	text-overflow: clip;
+	overflow-x: hidden;
+	vertical-align: bottom;
+	animation: ellipsis 3s infinite;
+}
+@keyframes ellipsis {
+	0% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0;
+	}
+	51% {
+		opacity: 1;
+		max-width: 0;
+	}
+	100% {
+		opacity: 1;
+		max-width: 0.75em;
+	}
+}
+
+small {
+	font-size: 30%;
+	font-style: italic;
+}
+
+#result {
+	padding: 1em;
 }
 
 #pager {
@@ -54,6 +130,7 @@ body.probably-prime #result .message.probably-prime
     border: none;
     font-size: 1em;
     color: inherit;
+	font-family: inherit;
 }
 #prev {
     float: left;
