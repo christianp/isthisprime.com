@@ -14,15 +14,47 @@ function superscript_number(n) {
     return s;
 }
 
+function shuffle(l) {
+	for(var i=l.length-1;i>=0;i--) {
+		var n = Math.floor(Math.random()*i);
+		var t = l[n];
+		l[n] = l[i];
+		l[i] = t;
+	}
+	return l;
+}
+
 function Game() {
-    var g = this;
+	var g = this;
 	this.top = 50;
 	this.queue = [];
-	this.seen = {};
+	this.num_generated = 0;
+	this.choices = [];
 	this.num_seen = 0;
-	this.add_queue();
 	this.streak = 0;
     this.time_allowed = 60;
+	this.max = Infinity;
+
+	if(window.location.search) {
+		var bits = window.location.search.slice(1).split('&');
+		bits.forEach(function(b) {
+			var a = b.split('=');
+			var name = a[0];
+			var value = a[1];
+			switch(name) {
+				case 'max':
+					g.max = parseInt(value);
+					g.max = (g.max+g.max%2)/2;
+					g.top = Math.min(g.max,g.top);
+					break;
+				case 'difficulty':
+					g.difficulty = parseFloat(value);
+					break;
+			}
+		});
+	}
+
+	this.add_queue();
 	document.body.className = 'start';
 }
 Game.prototype = {
@@ -37,34 +69,32 @@ Game.prototype = {
 		document.body.classList.add('play');
     },
 	add_queue: function(n) {
-		for(var i=0;i<10;i++) {
-			if(this.num_seen==this.top) {
-				this.top += 20;
-			}
-			var n = randrange(1,this.top);
-			while(this.seen[n]) {
-				n = randrange(1,this.top);
-			}
-			this.queue.push(2*n+1);
-			this.seen[n] = true;
-			this.top *= 1.1;
+		if(this.num_seen>=this.top) {
+			this.top += 20;
+			this.max = Infinity;
 		}
+		while(this.num_generated<this.top) {
+			this.num_generated += 1;
+			this.queue.push(2*this.num_generated-1);
+		}
+		this.queue = shuffle(this.queue);
 	},
 	check: function(answer) {
 		var primality = is_prime(this.current_n);
 		var prime = primality=='prime';
 		if(prime==answer) {
 			this.streak += 1;
+			this.top *= 1.02;
+			this.top = Math.min(this.top,this.max);
 			this.next_n();
 		} else {
 			this.end(prime ? 'prime' : 'composite');
 		}
 	},
 	next_n: function() {
+		this.add_queue();
+		this.num_seen += 1;
 		this.current_n = this.queue.splice(0,1)[0];
-		if(Math.random()<1/this.queue.length) {
-			this.add_queue();
-		}
 
 		document.getElementById('n').innerText = this.current_n.toString();
 		document.getElementById('score').innerText = this.streak;
@@ -102,7 +132,6 @@ Game.prototype = {
         }
         document.getElementById('reason').innerHTML = message;
 		this.ended = true;
-		console.log("Ended",this.streak);
 	}
 }
 
