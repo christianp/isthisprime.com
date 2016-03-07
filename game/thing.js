@@ -160,7 +160,6 @@ document.body.addEventListener('keydown',function(e) {
 	if(game.ended || !game.started) {
 		return;
 	}
-	console.log(e.which);
 	switch(e.keyCode) {
 		case 89:	// 'y'
 		case 37:	// left arrow
