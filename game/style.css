@@ -121,3 +121,21 @@ button {
         margin: 0 1em;
     }
 }
+
+#about {
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	line-height: 1em;
+	font-family: sans-serif;
+}
+@media screen and (min-width: 768px) {
+	#about {
+		font-size: 0.8em;
+	}
+}
+
+#about a {
+	text-decoration: none;
+}
+

@@ -145,7 +145,7 @@ var $ = function(s){return document.querySelector(s)};
 
 function update(n) {
 	document.body.className = '';
-    $('#n').innerText = n;
+    $('#n').innerHTML = n;
 	var tens = n.length-(n.length%10);
 	if(n.length>30) {
 		tens = 30;
@@ -158,8 +158,8 @@ function update(n) {
 		document.body.classList.remove('loading');
 		document.body.classList.add(message);
 
-		$('#prev-n').innerText = BigInteger.parse(n).subtract(1).toString();
-		$('#next-n').innerText = BigInteger.parse(n).add(1).toString();
+		$('#prev-n').innerHTML = BigInteger.parse(n).subtract(1).toString();
+		$('#next-n').innerHTML = BigInteger.parse(n).add(1).toString();
 
 		if(window.history) {
 			window.history.replaceState(null,n,n);
@@ -191,11 +191,11 @@ function describe_primality(n) {
 }
 
 $('#prev').addEventListener('click',function() {
-    var n =$('#prev-n').innerText;
+    var n =$('#prev-n').innerHTML;
     update(n);
 });
 $('#next').addEventListener('click',function() {
-    var n =$('#next-n').innerText;
+    var n =$('#next-n').innerHTML;
     update(n);
 });
 

@@ -1,6 +1,10 @@
 html {
     font-size: 40px;
 }
+body.about {
+	font-size: 20px;
+	padding: 1em;
+}
 @media screen and (min-width: 768px) {
 	html {
 		font-size: 100px;
@@ -14,6 +18,10 @@ body {
     display: block;
     width: 100%;
 	transition: background-color 1s, color 1s;
+}
+
+a {
+	color: inherit;
 }
 
 .number {
@@ -59,7 +67,8 @@ body.prime {
     color: #e7dfec;
 }
 
-body.probably-prime {
+body.probably-prime,
+body.about {
     background: #2e4372;
     color: #ffe3aa;
 }
@@ -140,3 +149,21 @@ small {
     float: right;
     margin-right: 1em;
 }
+
+#about {
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	line-height: 1em;
+	font-family: sans-serif;
+}
+@media screen and (min-width: 768px) {
+	#about {
+		font-size: 0.8em;
+	}
+}
+
+#about a {
+	text-decoration: none;
+}
+
