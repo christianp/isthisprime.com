@@ -158,8 +158,10 @@ function update(n) {
 		document.body.classList.remove('loading');
 		document.body.classList.add(message);
 
-		$('#prev-n').innerHTML = BigInteger.parse(n).subtract(1).toString();
-		$('#next-n').innerHTML = BigInteger.parse(n).add(1).toString();
+		if(message!='not-number') {
+			$('#prev-n').innerHTML = BigInteger.parse(n).subtract(1).toString();
+			$('#next-n').innerHTML = BigInteger.parse(n).add(1).toString();
+		}
 
 		if(window.history) {
 			window.history.replaceState(null,n,n);
@@ -176,7 +178,7 @@ function update(n) {
 
 function describe_primality(n) {
     if(!n.match(/\d+/)) {
-        return "Not a number";
+        return "not-number";
     }
 
     switch(is_prime(n,50)) {
