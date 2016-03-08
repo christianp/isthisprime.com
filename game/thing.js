@@ -1,8 +1,56 @@
+var settings = {
+	max: 0,
+	time_allowed: 60,
+	difficulty: 1
+}
+
+if(window.location.search) {
+	var bits = window.location.search.slice(1).split('&');
+	bits.forEach(function(b) {
+		var a = b.split('=');
+		var name = a[0];
+		var value = a[1];
+		switch(name) {
+			case 'max':
+				var max = parseInt(value);
+				settings.max = (max+max%2)/2;
+				break;
+			case 'difficulty':
+				settings.difficulty = parseFloat(value/50)+1;
+				break;
+			case 'time':
+				settings.time_allowed = parseFloat(value);
+				break;
+		}
+	});
+}
+
+function setting(name) {
+	var container = document.getElementById('setting-'+name);
+	var input = container.querySelector('input');
+	var decrease = container.querySelector('.decrease');
+	var increase = container.querySelector('.increase');
+	input.value = settings[name];
+	input.addEventListener('change',function() {
+		settings[name] = parseFloat(input.value);
+	});
+	decrease.addEventListener('click',function() {
+		settings[name]--
+		input.value = settings[name];
+	});
+	increase.addEventListener('click',function() {
+		settings[name]++;
+		input.value = settings[name];
+	});
+}
+for(var key in settings) {
+	setting(key);
+}
+
+
 function randrange(min,max) {
 	return Math.floor(Math.random()*(max-min))+min;
 }
-
-var superscripts = '⁰¹²³⁴⁵⁶⁷⁸⁹';
 
 function superscript_number(n) {
     var s = '';
@@ -26,37 +74,15 @@ function shuffle(l) {
 
 function Game() {
 	var g = this;
-	this.top = 40;
+	this.max = settings.max>0 ? settings.max : Infinity;
+    this.time_allowed = settings.time_allowed;
+	this.difficulty = 1+settings.difficulty/50;
+	this.top = Math.min(40,this.max);
 	this.queue = [];
 	this.num_generated = 0;
 	this.choices = [];
 	this.num_seen = 0;
 	this.streak = 0;
-    this.time_allowed = 60;
-	this.max = Infinity;
-	this.difficulty = 1.02;
-
-	if(window.location.search) {
-		var bits = window.location.search.slice(1).split('&');
-		bits.forEach(function(b) {
-			var a = b.split('=');
-			var name = a[0];
-			var value = a[1];
-			switch(name) {
-				case 'max':
-					g.max = parseInt(value);
-					g.max = (g.max+g.max%2)/2;
-					g.top = g.max;
-					break;
-				case 'difficulty':
-					g.difficulty = parseFloat(value/50)+1;
-					break;
-				case 'time':
-					g.time_allowed = parseFloat(value);
-					break;
-			}
-		});
-	}
 
 	this.add_queue();
 	document.body.className = 'start';
@@ -70,8 +96,7 @@ Game.prototype = {
             g.clock();
         },100)
         this.next_n();
-		document.body.classList.remove('start');
-		document.body.classList.add('play');
+		document.body.className = 'play';
     },
 	add_queue: function(n) {
 		if(this.num_seen>=this.top) {
@@ -116,8 +141,7 @@ Game.prototype = {
     },
 	end: function(reason) {
         clearInterval(this.clock_interval);
-		document.body.classList.remove('play');
-		document.body.classList.add('end');
+		document.body.className = 'end';
 		document.getElementById('end-score').innerHTML = this.streak;
         var message;
         switch(reason) {
@@ -150,6 +174,10 @@ var game = new Game();
 document.getElementById('start').addEventListener('click',function() {
     game.start();
 });
+document.getElementById('settings-start').addEventListener('click',function() {
+    game = new Game();
+	game.start();
+});
 document.getElementById('yes').addEventListener('click',function() {
 	game.check(true);
 });
@@ -159,6 +187,10 @@ document.getElementById('no').addEventListener('click',function() {
 document.getElementById('restart').addEventListener('click',function() {
     game = new Game();
     game.start();
+});
+document.getElementById('settings').addEventListener('click',function() {
+	game.end();
+	document.body.className='settings';
 });
 
 document.body.addEventListener('keydown',function(e) {

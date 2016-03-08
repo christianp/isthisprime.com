@@ -52,7 +52,7 @@ body.loading #pager {
 	display: none;
 }
 
-#start {
+#start, #settings-start {
     background: #2e4372;
     color: #ffe3aa;
 }
@@ -89,6 +89,7 @@ body.end {
 
 body.start .screen.start,
 body.play .screen.play,
+body.settings .screen.settings,
 body.end .screen.end
 {
     display: initial;
@@ -104,6 +105,13 @@ body.end .screen.end
 	color: hsl(40, 100%, 70%);
 }
 
+input {
+	font-size: 1em;
+	width: 2em;
+	background: none;
+	border: none;
+	border-bottom: 2px solid;
+}
 button {
 	font-size: 1em;
 	padding: 0.5em 1em;
@@ -122,20 +130,45 @@ button {
     }
 }
 
-#about {
+
+.top-control {
 	position: absolute;
-	right: 10px;
 	top: 10px;
 	line-height: 1em;
 	font-family: sans-serif;
+	text-decoration: none;
 }
-@media screen and (min-width: 768px) {
-	#about {
+@media screenand (min-width: 768px) {
+	.top-control {
 		font-size: 0.8em;
 	}
 }
 
-#about a {
-	text-decoration: none;
+#about {
+	right: 10px;
+}
+#settings {
+	left: 10px;
 }
 
+.setting {
+	margin: 0.5em auto;
+}
+
+.setting label {
+	width: 48%;
+	text-align: right;
+	display: inline-block;
+}
+.setting .control {
+	width: 50%;
+	text-align: left;
+	display: inline-block;
+}
+.setting input {
+	text-align: right;
+}
+.settings button {
+    margin: 0;
+    padding: 0;
+}

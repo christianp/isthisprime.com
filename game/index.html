@@ -41,10 +41,33 @@
                     <button type="button" id="restart">Start again</button>
                 </div>
 			</div>
+			<div class="screen settings">
+				<h2>Settings</h2>
+				<div class="setting" id="setting-max">
+					<label>Maximum number</label>
+					<div class="control">
+						<button class="decrease">-</button><input type="number" min="0"><button class="increase">+</button>
+					</div>
+				</div>
+				<div class="setting" id="setting-time_allowed">
+					<label>Time allowed</label>
+					<div class="control">
+						<button class="decrease">-</button><input type="number" min="0"><button class="increase">+</button>
+					</div>
+				</div>
+				<div class="setting" id="setting-difficulty">
+					<label>Difficulty</label>
+					<div class="control">
+						<button class="decrease">-</button><input type="number" min="0"><button class="increase">+</button>
+					</div>
+				</div>
+                <div class="controls">
+                    <button type="button" id="settings-start">Start</button>
+                </div>
+			</div>
 		</div>
-		<div id="about">
-			<a href="about.html">?</a>
-		</div>
+		<a class="top-control" id="settings" href="#">S</a>
+		<a class="top-control" id="about" href="about.html">?</a>
         <script src="thing.js"></script>
     </body>
 </html>
