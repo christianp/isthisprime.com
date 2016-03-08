@@ -1,4 +1,6 @@
 var seen = {};
+var current_n;
+var screensaver = false;
 
 function modpow(a,b,n) {
     if(b==0) {
@@ -143,7 +145,8 @@ function is_prime(n) {
 
 var $ = function(s){return document.querySelector(s)};
 
-function update(n) {
+function update() {
+	var n = current_n;
 	document.body.className = '';
     $('#n').innerHTML = n;
 	var tens = n.length-(n.length%10);
@@ -164,7 +167,7 @@ function update(n) {
 		}
 
 		if(window.history) {
-			window.history.replaceState(null,n,n);
+			window.history.replaceState(null,n,n+(screensaver ? '?screensaver' : ''));
 		}
 	}
 
@@ -191,15 +194,21 @@ function describe_primality(n) {
             return 'probably-prime';
     }
 }
+function next() {
+	current_n = BigInteger(current_n).add(1).toString();
+	update();
+}
+function prev() {
+	current_n = BigInteger(current_n).subtract(1).toString();
+	update();
+}
 
-$('#prev').addEventListener('click',function() {
-    var n =$('#prev-n').innerHTML;
-    update(n);
-});
-$('#next').addEventListener('click',function() {
-    var n =$('#next-n').innerHTML;
-    update(n);
-});
+$('#prev').addEventListener('click',prev);
+$('#next').addEventListener('click',next);
 
-var n = window.location.pathname.slice(1) || '2';
-update(n);
+if(window.location.search.match(/^\?screensaver/)) {
+	screensaver = true;
+	setInterval(next,5000);
+}
+current_n = window.location.pathname.slice(1) || '2';
+update();

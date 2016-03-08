@@ -26,7 +26,7 @@ function shuffle(l) {
 
 function Game() {
 	var g = this;
-	this.top = 20;
+	this.top = 40;
 	this.queue = [];
 	this.num_generated = 0;
 	this.choices = [];
@@ -45,10 +45,13 @@ function Game() {
 				case 'max':
 					g.max = parseInt(value);
 					g.max = (g.max+g.max%2)/2;
-					g.top = Math.min(g.max,g.top);
+					g.top = g.max;
 					break;
 				case 'difficulty':
-					g.difficulty = parseFloat(value);
+					g.difficulty = parseFloat(value/10)+1;
+					break;
+				case 'time':
+					g.time_allowed = parseFloat(value);
 					break;
 			}
 		});
@@ -85,7 +88,7 @@ Game.prototype = {
 		var prime = primality=='prime';
 		if(prime==answer) {
 			this.streak += 1;
-			this.top *= 1.02;
+			this.top *= this.difficulty;
 			this.top = Math.min(this.top,this.max);
 			this.next_n();
 		} else {

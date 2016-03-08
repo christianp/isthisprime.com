@@ -78,6 +78,7 @@ body.about {
 }
 
 body.loading #result .message.loading,
+body.not-number #result .message.not-number,
 body.not-prime #result .message.not-prime,
 body.prime #result .message.prime,
 body.probably-prime #result .message.probably-prime
