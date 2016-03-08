@@ -34,6 +34,7 @@ function Game() {
 	this.streak = 0;
     this.time_allowed = 60;
 	this.max = Infinity;
+	this.difficulty = 1.02;
 
 	if(window.location.search) {
 		var bits = window.location.search.slice(1).split('&');
@@ -139,6 +140,7 @@ Game.prototype = {
                 break;
         }
         document.getElementById('reason').innerHTML = message;
+		document.getElementById('restart').focus();
 		this.ended = true;
 	}
 }
