@@ -161,14 +161,13 @@ button {
 	display: inline-block;
 }
 .setting .control {
-	width: 50%;
 	text-align: left;
 	display: inline-block;
 }
 .setting input {
 	text-align: right;
 }
-.settings button {
+.setting button {
     margin: 0;
     padding: 0;
 }
