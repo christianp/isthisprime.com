@@ -49,7 +49,7 @@ function Game() {
 					g.top = g.max;
 					break;
 				case 'difficulty':
-					g.difficulty = parseFloat(value/10)+1;
+					g.difficulty = parseFloat(value/50)+1;
 					break;
 				case 'time':
 					g.time_allowed = parseFloat(value);
