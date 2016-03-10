@@ -49,6 +49,7 @@ function miller(n) {
     return "prime";
 }
 
+// adapted from http://www.javascripter.net/math/primes/millerrabinprimalitytest.htm
 
 function miller_rabin(n,a) {
     // miller_rabin(n,a) performs one round of the Miller-Rabin test
@@ -128,9 +129,6 @@ function is_prime(n) {
             return 'prime';
         }
         res = miller_rabin(s,a);
-        if ((res.toString()).indexOf('i')>0) {
-            return res;
-        }
         if (res===false) {
             return 'composite';
         }
