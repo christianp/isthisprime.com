@@ -84,6 +84,8 @@ function Game() {
 	this.num_seen = 0;
 	this.streak = 0;
 
+	this.sequence = [];
+
 	this.add_queue();
 	document.body.className = 'start';
 }
@@ -116,6 +118,7 @@ Game.prototype = {
 			this.streak += 1;
 			this.top *= this.difficulty;
 			this.top = Math.min(this.top,this.max);
+			this.sequence.push(this.current_n);
 			this.next_n();
 		} else {
 			this.end(prime ? 'prime' : 'composite');
@@ -140,6 +143,9 @@ Game.prototype = {
         }
     },
 	end: function(reason) {
+		if(reason) {
+			this.report(reason);
+		}
         clearInterval(this.clock_interval);
 		document.body.className = 'end';
 		document.getElementById('end-score').innerHTML = this.streak;
@@ -163,9 +169,35 @@ Game.prototype = {
                 message = 'You ran out of time!';
                 break;
         }
-        document.getElementById('reason').innerHTML = message;
+        document.getElementById('reason_message').innerHTML = message;
 		document.getElementById('restart').focus();
 		this.ended = true;
+	},
+	report: function(reason) {
+		var http = new XMLHttpRequest();
+		var url = "record.php";
+		var params = [
+			['time_taken', (new Date() - this.start_time)/1000],
+			['sequence', this.sequence.join(',')],
+			['end', this.current_n],
+			['end_reason', reason],
+			['difficulty', this.difficulty],
+			['max', this.max],
+			['time_allowed', this.time_allowed]
+		];
+		params = params.map(function(r) {
+			return r[0]+'='+encodeURIComponent(r[1]);
+		}).join('&');
+		http.open("POST", url, true);
+
+		//Send the proper header information along with the request
+		http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		
+		http.onreadystatechange = function() {//Call a function when the state changes.
+			if(http.readyState==4 && http.status == 200) {
+			}
+		}
+		http.send(params);
 	}
 }
 
@@ -208,3 +240,4 @@ document.body.addEventListener('keydown',function(e) {
 			break;
 	}
 });
+

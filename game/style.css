@@ -92,7 +92,7 @@ body.play .screen.play,
 body.settings .screen.settings,
 body.end .screen.end
 {
-    display: initial;
+    display: block;
 }
 
 .screen.not-prime strong, .screen.not-prime small {
