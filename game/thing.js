@@ -85,6 +85,7 @@ function Game() {
 	this.streak = 0;
 
 	this.sequence = [];
+    this.seen = {};
 
 	this.add_queue();
 	document.body.className = 'start';
@@ -101,10 +102,6 @@ Game.prototype = {
 		document.body.className = 'play';
     },
 	add_queue: function(n) {
-		if(this.num_seen>=this.top) {
-			this.top += 20;
-			this.max = Infinity;
-		}
 		while(this.num_generated<this.top) {
 			this.num_generated += 1;
 			this.queue.push(2*this.num_generated-1);
@@ -125,9 +122,22 @@ Game.prototype = {
 		}
 	},
 	next_n: function() {
-		this.add_queue();
-		this.num_seen += 1;
-		this.current_n = this.queue.splice(0,1)[0];
+		if(this.num_seen>=this.top) {
+			this.top += 20;
+			this.max = Infinity;
+		}
+        this.num_seen += 1;
+        if(this.num_seen/this.top>0.5) {
+            this.add_queue();
+            this.current_n = this.queue.splice(0,1)[0];
+        } else {
+            var n = null;
+            while(n===null || this.seen[2*n+1]) {
+                n = Math.floor(Math.random()*this.top);
+            }
+            this.current_n = 2*n+1;
+            this.seen[this.current_n] = true;
+        }
 
 		document.getElementById('n').innerHTML = this.current_n.toString();
 		document.getElementById('score').innerHTML = this.streak;
