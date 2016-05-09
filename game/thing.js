@@ -126,14 +126,16 @@ Game.prototype = {
 			this.top += 20;
 			this.max = Infinity;
 		}
+		var biggest = Number.MAX_SAFE_INTEGER || 9007199254740991; // there's a biggest number. Don't tell Cantor.
+		var top = Math.min(this.top,biggest);
         this.num_seen += 1;
-        if(this.num_seen/this.top>0.5) {
+        if(this.num_seen/top>0.5) {
             this.add_queue();
             this.current_n = this.queue.splice(0,1)[0];
         } else {
             var n = null;
             while(n===null || this.seen[2*n+1]) {
-                n = Math.floor(Math.random()*this.top);
+                n = Math.floor(Math.random()*top);
             }
             this.current_n = 2*n+1;
             this.seen[this.current_n] = true;
