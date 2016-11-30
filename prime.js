@@ -103,6 +103,25 @@ function miller_rabin(n,a) {
 
 var smallPrimes = [2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97,101,103,107,109,113];
 
+// When n is small, testing on the following bases is sufficient to prove the primality of n
+// from https://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test#Deterministic_variants
+var deterministic_bounds = [
+    [BigInteger.parse('2047'),[2]],
+    [BigInteger.parse('1373653'),[2,3]],
+    [BigInteger.parse('9080191'),[31,73]],
+    [BigInteger.parse('25326001'),[2,3,5]],
+    [BigInteger.parse('3215031751'),[2,3,5,7]],
+    [BigInteger.parse('4759123141'),[2,7,61]],
+    [BigInteger.parse('1122004669633'),[2,13,23,1662803]],
+    [BigInteger.parse('2152302898747'),[2,3,5,7,11]],
+    [BigInteger.parse('3474749660383'),[2,3,5,7,11,3]],
+    [BigInteger.parse('341550071728321'),[2,3,5,7,11,13,17]],
+    [BigInteger.parse('3825123056546413051'),[2,3,5,7,11,13,17,19,23]],
+    [BigInteger.parse('18446744073709551616'),[2,3,5,7,11,13,17,19,23,29,31,37]],
+    [BigInteger.parse('318665857834031151167461'),[2,3,5,7,11,13,17,19,23,29,32,37]],
+    [BigInteger.parse('3317044064679887385961981'),[2,3,5,7,11,13,17,19,23,29,31,37,41]]
+];
+
 function is_prime(n) {
 	n = n.toString();
     if(n.length<=10) {
@@ -119,12 +138,25 @@ function is_prime(n) {
         return "composite";
     }
 
+    var bases = null;
+    var deterministic = false;
+    for(var i=0;i<deterministic_bounds.length;i++) {
+        if(n.compare(deterministic_bounds[i][0])==-1) {    // if n < the bound
+            bases = deterministic_bounds[i][1];
+            deterministic = true;
+            break;
+        }
+    }
+    if(bases===null) {
+        bases = smallPrimes;
+    }
+
     var res;
     var a; 
     var s = (n.toString()).replace(/\s/g,''); 
-    var rounds = smallPrimes.length;
+    var rounds = bases.length;
     for (var k=0;k<rounds;k++) {
-        a = smallPrimes[k];
+        a = bases[k];
         if (s == a.toString()) {
             return 'prime';
         }
@@ -133,7 +165,7 @@ function is_prime(n) {
             return 'composite';
         }
     }
-    return 'probable prime';
+    return deterministic ? 'prime' : 'probable prime';
 }
 
 function factorise(n) {
