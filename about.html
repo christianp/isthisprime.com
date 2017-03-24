@@ -13,8 +13,9 @@
 		<p>If you go to, for example, <a href="/57">isthisprime.com/57</a>, it will tell you that <span class="number">57</span> is not a prime number.</p>
 		<h2>How it works</h2>
 		<p>For numbers up to 10 digits long, it uses the <a href="https://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test#Deterministic_variants_of_the_test">deterministic Miller test</a> to determine if the number is prime, with 100% certainty.
-		This is a remarkably clever algorithm which can decide primality in logarithmic time.</p
+		This is a remarkably clever algorithm which can decide primality in logarithmic time.</p>
 		<p>For larger numbers, it uses the <a href="https://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test">probabilistic Miller-Rabin test</a> to make a pretty good guess about whether the given number is prime. "Pretty good" in this case means "practically certain" - you're very unlikely to type in a number which the algorithm says is probably prime but which is in fact composite. However, when the algorithm says a number is composite, it's definitely composite.</p>
+		<p>For numbers up to 25 digits long, the Miller-Rabin test can give definite answers for primes up to about 25 digits long, by <a href="https://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test#Deterministic_variants">using a set of "witness" bases</a>.</p>
 		<p>If I was cleverer, I'd pay more attention to the intricacies of these tests to make them run faster and be more certain, but I'm already at the edge of my understanding.</p>
 		<h2>Extras</h2>
 		<p>You can turn on screensaver mode by adding <code style="display:inline-block;">?screensaver</code> to the end of the URL, e.g. <a href="/57?screensaver">isthisprime.com/57?screensaver</a>. It'll automatically move on to the next number every 5 seconds.</p>
