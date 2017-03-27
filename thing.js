@@ -39,7 +39,7 @@ function update() {
 }
 
 function describe_primality(n) {
-    if(!n.match(/\d+/)) {
+    if(!n.match(/^\d+$/)) {
         return "not-number";
     }
 
