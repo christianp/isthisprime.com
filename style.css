@@ -142,6 +142,9 @@ small {
     color: inherit;
 	font-family: inherit;
 }
+body.not-number #pager button {
+	display: none;
+}
 #prev {
     float: left;
     margin-left: 1em;

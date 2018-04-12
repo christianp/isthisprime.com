@@ -54,12 +54,18 @@ function describe_primality(n) {
     }
 }
 function next() {
-	current_n = BigInteger(current_n).add(1).toString();
-	update();
+	try {
+		current_n = BigInteger(current_n).add(1).toString();
+		update();
+	} catch(e) {
+	}
 }
 function prev() {
-	current_n = BigInteger(current_n).subtract(1).toString();
-	update();
+	try {
+		current_n = BigInteger(current_n).subtract(1).toString();
+		update();
+	} catch(e) {
+	}
 }
 
 $('#prev').addEventListener('click',prev);
