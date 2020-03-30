@@ -82,6 +82,9 @@ body.end {
     background: #aa3939;
     color: #DBF0DB;
 }
+body.end footer {
+    font-size: 0.8em;
+}
 
 .screen {
     display: none;
