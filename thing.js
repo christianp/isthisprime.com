@@ -26,7 +26,7 @@ function update() {
 		}
 
 		if(window.history) {
-			window.history.replaceState(null,n,n+(screensaver ? '?screensaver' : ''));
+			window.history.replaceState(null,n,'/'+n+(screensaver ? '?screensaver' : ''));
 		}
 	}
 
@@ -75,5 +75,6 @@ if(window.location.search.match(/^\?screensaver/)) {
 	screensaver = true;
 	setInterval(next,5000);
 }
-current_n = window.location.pathname.slice(1) || '2';
+var path_n = window.location.pathname.slice(1).replace(/\/$/,'');
+current_n = path_n || '2';
 update();
