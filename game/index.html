@@ -22,9 +22,8 @@
             </div>
 			<div class="screen play">
                 <div class="score">
-                    Score: <span id="score" class="number"></span>
-                    <br>
-                    Time remaining: <span id="time" class="number"></span>s
+                    <div id="score-line">Score: <span id="score" class="number"></span></div>
+                    <div id="time-remaining-line">Time remaining: <span id="time" class="number"></span>s</div>
                 </div>
 				<p>
 					Is
@@ -41,7 +40,7 @@
 			<div class="screen end">
 				<h1>Game over</h1>
                 <p id="reason_message"></p>
-				<p>You correctly sorted <span class="number" id="end-score"></span> numbers.</p>
+                <p>You correctly sorted <span class="number" id="end-score"></span> <span id="numbers">numbers</span>.</p>
 				<div class="controls">
                     <button type="button" id="restart">Start again</button>
                 </div>

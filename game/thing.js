@@ -161,6 +161,7 @@ Game.prototype = {
         clearInterval(this.clock_interval);
 		document.body.className = 'end';
 		document.getElementById('end-score').innerHTML = this.streak;
+		document.getElementById('numbers').textContent = this.streak==1 ? 'number' : 'numbers';
         var message;
         switch(reason) {
             case 'prime':
