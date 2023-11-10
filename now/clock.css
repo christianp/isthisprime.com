@@ -1,0 +1,46 @@
+body {
+    overflow: hidden;
+    background: #aa3939;
+    color: white;
+}
+
+ol {
+    list-style: none;
+}
+
+time {
+    position: absolute;
+    top: calc(50vh - 1em);
+    line-height: 1em;
+    left: 0;
+    --font-size: min(7vw, calc(200vh / 30));
+    font-size: var(--font-size);
+    display: block;
+    width: 100vw;
+    text-align: center;
+    font-family: monospace;
+    transition: font-size 1s;
+}
+
+ol time {
+    color: #aaa;
+}
+
+#future-times li:first-child time.offscreen {
+  top: calc(100vh - 1em) !important;
+  font-size: calc(var(--font-size) * 0.5);
+  opacity: 0.2;
+}
+
+#about {
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	line-height: 1em;
+	font-family: sans-serif;
+    font-size: max(24px, 4vw);
+}
+
+#about a {
+    color: inherit;
+}
