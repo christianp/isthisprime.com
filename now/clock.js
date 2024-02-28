@@ -35,11 +35,11 @@ function add_prime_time(t) {
 
     setTimeout(() => {
         document.getElementById('past-times').append(li);
-        celebrate();
+        celebrate(t);
     }, t*1000 - new Date());
 }
 
-function celebrate() {
+function celebrate(t) {
     document.getElementById('now').animate(
         { transform: [ 'rotate(0deg)', 'rotate(5deg)', 'rotate(-5deg)', 'rotate(0deg)' ]},
         { duration: 200, iterations: 4 }
@@ -48,6 +48,8 @@ function celebrate() {
         {backgroundColor: '#aaaa39'.split(' ')},
         { duration: 1000, iterations: 2, direction: 'alternate' }
     );
+    document.title = "It's prime time!!!!"
+    setTimeout(() => { document.title = "It's not prime time."; }, (t+1)*1000 - new Date());
 }
 
 function fill_time_element(time_element, t) {
