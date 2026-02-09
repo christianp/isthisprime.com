@@ -17,7 +17,7 @@ body {
     height: 100%;
     display: block;
     width: 100%;
-	transition: background-color 1s, color 1s;
+    transition: background-color 0.5s, color 0.5s;
 }
 
 a {
@@ -63,8 +63,8 @@ body.not-prime {
 }
 
 body.prime {
-    background: #aaaa39;
-    color: #e7dfec;
+    background: hsl(60, 49.8%, 44.5%);
+    color: hsl(60, 39.2%, 10.5%);
 }
 
 body.probably-prime,
@@ -90,7 +90,7 @@ body.probably-prime #result .message.probably-prime
 	color: hsl(120, 41%, 70%);
 }
 .message.prime strong, .message.not-prime small {
-	color: hsl(277, 25%, 80%);
+    color: hsl(60, 39.2%, 15.5%);
 }
 .message.probably-prime strong, .message.probably-prime small {
 	color: hsl(40, 100%, 70%);
@@ -170,4 +170,3 @@ body.not-number #pager button {
 #about a {
 	text-decoration: none;
 }
-
