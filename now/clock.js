@@ -1,5 +1,7 @@
 const worker = new Worker("./clockworker.js", {type: 'module'});
 
+const turn_on_notifications = document.getElementById('turn-on-notifications');
+
 const YSCALE = 30; // number of seconds to scroll the height of the screen 
 
 function unix_time() {
@@ -11,6 +13,8 @@ window.worker = worker;
 worker.onmessage = (e) => {
     add_prime_time(e.data);
 }
+
+let last_noty;
 
 function add_prime_time(t) {
     const li = document.createElement('li');
@@ -50,6 +54,28 @@ function celebrate(t) {
     );
     document.title = "It's prime time!!!!"
     setTimeout(() => { document.title = "It's not prime time."; }, (t+1)*1000 - new Date());
+    
+    if(turn_on_notifications.checked) {
+        if(last_noty) {
+            last_noty.close();
+        }
+        const d = new Date(t*1000);
+        const noty = new Notification(
+            `It's prime time!!!!`,
+            {
+                body: `${t} (${d.toLocaleTimeString()}) is prime`,
+                renotify: true,
+                tag: 'primetime',
+                lang: 'en',
+                timestamp: t,
+            }
+        );
+        last_noty = noty;
+
+        setTimeout(() => {
+            noty.close();
+        }, 5000);
+    }
 }
 
 function fill_time_element(time_element, t) {
@@ -63,3 +89,8 @@ function update_now() {
 }
 
 setInterval(update_now,100)
+
+
+turn_on_notifications.addEventListener('change', () => {
+    Notification.requestPermission();
+});
