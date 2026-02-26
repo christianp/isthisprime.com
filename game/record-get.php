@@ -59,7 +59,7 @@
 
     $last_dump_size = round(filesize("dumps/" . $last_dump) / pow(2,10 * 2));
 ?>
-        <p>This page is updated at most once every minute. It was last updated at <time><?= date('c') ?></time>.</p>
+        <p>This page is updated at most once per minute. It was last updated at <time><?= date('c') ?></time>.</p>
         <p>You can download a dump of every attempt at the game in tab-separated values format: <a href="dumps/<?= $last_dump ?>"><?= $last_dump ?></a> (<?= $last_dump_size ?>MB)</p>
 <?php
 $DB_USER = 'isthisprime';
